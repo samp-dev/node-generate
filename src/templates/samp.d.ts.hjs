@@ -1,0 +1,223 @@
+// Type definitions for samp-node
+// Project: @samp/node
+// Definitions by: pkfln <https://github.com/pkfln>
+
+/*
+ * @class samp
+ */
+declare class samp {
+  {{#each eventListenerAliases}}
+  {{#each @root.parsedIncludes}}
+  {{#each this.forward}}
+  /**
+   * Adds a new listener to {{this.name}}
+   *
+   * @name samp.{{../../this}}
+   {{#unless @../../first}}
+   * @alias samp.{{@root.eventListenerAliases.[0]}}
+   {{/unless}}
+   * @param {string} [eventName={{this.name}}] - Name of the event
+   * @param {function} func - Event callback
+   {{#if this.pawnDoc}}
+   {{#each this.pawnDoc.summary}}
+   * @summary {{this}}
+   {{/each}}
+   {{#each this.pawnDoc.see}}
+   * @see {{this}}
+   {{/each}}
+   {{#each this.pawnDoc.remarks}}
+   * @remarks {{this}}
+   {{/each}}
+   {{/if}}
+   * @returns {void}
+   */
+  static {{../../this}}(eventName: '{{this.name}}', func: ({{#each this.params}}{{this.name}}: {{#if (eq this.type 's')}}string{{else}}number{{/if}}{{#if @last}}{{else}}, {{/if}}{{/each}}) => void): void;
+  {{/each}}
+  {{/each}}
+  {{/each}}
+  {{#each eventListenerAliases}}
+  /**
+   * Adds a new listener to the given event
+   *
+   * @name samp.{{this}}
+   {{#unless @first}}
+   * @alias samp.{{@root.eventListenerAliases.[0]}}
+   {{/unless}}
+   * @param {string} eventName - Name of the event
+   * @param {function} func - Event callback
+   * @returns {void}
+   */
+  static {{this}}(eventName: string, func: () => void): void;
+  {{/each}}
+
+  {{#each removeEventListenerAliases}}
+  /**
+   * Removes all listeners
+   *
+   * @name samp.{{this}}
+   {{#unless @first}}
+   * @alias samp.{{@root.removeEventListenerAliases.[0]}}
+   {{/unless}}
+   * @param {string} eventName - Name of the event
+   * @returns {void}
+   */
+  static {{this}}(eventName: string): void;
+  {{#each @root.parsedIncludes}}
+  {{#each this.forward}}
+  /**
+   * Removes a specific listener for {{this.name}}
+   *
+   * @name samp.{{../../this}}
+   {{#unless @../../first}}
+   * @alias samp.{{@root.removeEventListenerAliases.[0]}}
+   {{/unless}}
+   * @param {string} eventName - Name of the event
+   * @param {function} func - Event callback
+   * @returns {void}
+   */
+  static {{../../this}}(eventName: '{{this.name}}', func: ({{#each this.params}}{{this.name}}: {{#if (eq this.type 's')}}string{{else}}number{{/if}}{{#if @last}}{{else}}, {{/if}}{{/each}}) => void): void;
+  {{/each}}
+  {{/each}}
+  /**
+   * Removes a specific listener
+   *
+   * @name samp.{{this}}
+   {{#unless @first}}
+   * @alias samp.{{@root.removeEventListenerAliases.[0]}}
+   {{/unless}}
+   * @param {string} eventName - Name of the event
+   * @param {function} func - Event callback
+   * @returns {void}
+   */
+  static {{this}}(eventName: string, func: () => void): void;
+  /**
+   * Removes specific listeners given in the Array
+   *
+   * @name samp.{{this}}
+   {{#unless @first}}
+   * @alias samp.{{@root.removeEventListenerAliases.[0]}}
+   {{/unless}}
+   * @param {string} eventName - Name of the event
+   * @param {function[]} funcs - Array of event callbacks
+   * @returns {void}
+   */
+  static {{this}}(eventName: string, funcs: Array<() => void>): void;
+  {{/each}}
+
+  /**
+   * Register a new event
+   * 
+   * @name samp.registerEvent
+   * @param {string} eventName - Name of the event
+   * @param {string} paramTypes - String of argument specifiers
+   * @returns {boolean}
+   */
+  static registerEvent(eventName: string, paramTypes: string): boolean;
+
+  {{#each parsedIncludes}}
+  {{#each this.forward}}
+  /**
+   * Triggers the {{this.name}} event
+   *
+   * @name samp.fire
+   * @param {string} eventName - Name of the event
+   * @returns {void}
+   */
+  static fire(eventName: '{{this.name}}'): void;
+  {{/each}}
+  {{/each}}
+  /**
+   * Triggers a registered event
+   *
+   * @name samp.fire
+   * @param {string} eventName - Name of the event
+   * @returns {void}
+   */
+  static fire(eventName: string): void;
+
+  {{#each parsedIncludes}}
+  {{#each this.native}}
+  {{#unless (hvp this.params)}}
+  /**
+   * Calls the AMX native {{this.name}} {{#if this.returnsFloat}}that returns a value with a Float tag{{/if}}
+   *
+   * @name samp.callNative{{#if this.returnsFloat}}Float{{/if}}
+   * @param {string} nativeName - Name of the native
+   * @param {string} paramTypes - String of argument specifiers
+   {{#if (gt (svwl this.params) 0)}}
+   {{#each (svw this.params)}}
+   * @param {{tts this.type true}} {{this.name}}{{#if ../this.pawnDoc}} - {{ppd ../this.pawnDoc this}}{{/if}}
+   {{/each}}
+   {{/if}}
+   {{#if this.pawnDoc}}
+   {{#each this.pawnDoc.summary}}
+   * @summary {{this}}
+   {{/each}}
+   {{#each this.pawnDoc.see}}
+   * @see {{this}}
+   {{/each}}
+   {{#each this.pawnDoc.remarks}}
+   * @remarks {{this}}
+   {{/each}}
+   {{#each this.pawnDoc.returns}}
+   * @returns {{this}}
+   {{/each}}
+   {{else}}
+   * @returns {*}
+   {{/if}}
+   */
+  static callNative{{#if this.returnsFloat}}Float{{/if}}(nativeName: '{{this.name}}', paramTypes: '{{svs this.params}}'{{#if (gt (svwl this.params) 0)}}, {{#each (svw this.params)}}{{this.name}}: {{tts this.type false}}{{#if @last}}{{else}}, {{/if}}{{/each}}{{/if}}): {{#if (gt (rvl this.params) 1)}}Array<any>{{else if (eq (rvs this.params) 'S')}}string{{else}}number{{/if}};
+  {{/unless}}
+  {{/each}}
+  {{/each}}
+  /**
+   * Calls an AMX native
+   *
+   * @name samp.callNative
+   * @param {string} nativeName - Name of the native
+   * @param {string} paramTypes - String of argument specifiers
+   * @param {...*} args - Native arguments
+   * @returns {*}
+   */
+  static callNative(nativeName: string, paramTypes: string, ...args: Array<any>): any;
+  /**
+   * Calls an AMX native that returns a value with a Float tag
+   *
+   * @name samp.callNativeFloat
+   * @param {string} nativeName - Name of the native
+   * @param {string} paramTypes - String of argument specifiers
+   * @param {...*} args - Native arguments
+   * @returns {*}
+   */
+  static callNativeFloat(nativeName: string, paramTypes: string, ...args: Array<any>): any;
+
+  /**
+   * Calls an AMX public function
+   *
+   * @name samp.callPublic
+   * @param {string} publicName - Name of the public function
+   * @param {string} paramTypes - String of argument specifiers
+   * @param {...*} args - Native arguments
+   * @returns {*}
+   */
+  static callPublic(publicName: string, paramTypes: string, ...args: Array<any>): any;
+  /**
+   * Calls an AMX public function that returns a value with a Float tag
+   *
+   * @name samp.callPublicFloat
+   * @param {string} publicName - Name of the public function
+   * @param {string} paramTypes - String of argument specifiers
+   * @param {...*} args - Native arguments
+   * @returns {*}
+   */
+  static callPublicFloat(publicName: string, paramTypes: string, ...args: Array<any>): any;
+
+  /**
+   * Prints a string to the server log
+   *
+   * @name samp.logprint
+   * @param {string} str - string to print (max. 2051 chars)
+   * @returns {void}
+   */
+  static logprint(str: string): void;
+}

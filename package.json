@@ -1,0 +1,35 @@
+{
+  "name": "@samp/node-generate",
+  "version": "0.1.0",
+  "description": "Generates type definition files for samp-node",
+  "main": "./src/index.ts",
+  "scripts": {
+    "start": "ts-node .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "git+https://github.com/pkfln/node-generate.git",
+  "author": "pkfln",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pkfln/node-generate/issues"
+  },
+  "homepage": "https://github.com/pkfln/node-generate#readme",
+  "devDependencies": {
+    "ts-node": "^8.8.1",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "@types/fs-extra": "^8.1.0",
+    "@types/promise-fs": "^2.1.0",
+    "@types/striptags": "^3.1.1",
+    "@types/xml2js": "^0.4.5",
+    "constant-case": "^3.0.3",
+    "fs-extra": "^9.0.0",
+    "got": "^10.7.0",
+    "handlebars": "^4.7.3",
+    "node-eval": "^2.0.0",
+    "ora": "^4.0.3",
+    "striptags": "^3.1.1",
+    "xml2js": "^0.4.23"
+  }
+}

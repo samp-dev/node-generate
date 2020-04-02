@@ -1,0 +1,7 @@
+// Type definitions for samp-node
+// Project: @samp/node
+// Definitions by: pkfln <https://github.com/pkfln>
+
+{{#each eventConstants}}
+declare const {{@key}}: '{{this}}';
+{{/each}}
