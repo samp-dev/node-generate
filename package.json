@@ -1,5 +1,5 @@
 {
-  "name": "@samp/node-generate",
+  "name": "@sa-mp/node-generate",
   "version": "0.1.0",
   "description": "Generates type definition files for samp-node",
   "main": "./src/index.ts",
