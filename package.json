@@ -7,13 +7,13 @@
     "start": "ts-node .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": "git+https://github.com/pkfln/node-generate.git",
+  "repository": "git+https://github.com/samp-dev/node-generate.git",
   "author": "pkfln",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/pkfln/node-generate/issues"
+    "url": "https://github.com/samp-dev/node-generate/issues"
   },
-  "homepage": "https://github.com/pkfln/node-generate#readme",
+  "homepage": "https://github.com/samp-dev/node-generate#readme",
   "devDependencies": {
     "ts-node": "^8.8.1",
     "typescript": "^3.8.3"

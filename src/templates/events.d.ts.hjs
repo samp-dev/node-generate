@@ -1,5 +1,5 @@
 // Type definitions for samp-node
-// Project: @samp/node
+// Project: @sa-mp/node
 // Definitions by: pkfln <https://github.com/pkfln>
 
 {{#each eventConstants}}
