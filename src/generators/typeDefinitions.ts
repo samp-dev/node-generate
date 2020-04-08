@@ -32,13 +32,13 @@ Handlebars.registerHelper({
   // has variadic params
   hvp: (pa: Array<IParam>) => pa.some(p => p.isVariadic),
   // specifier values string
-  svs: (pa: Array<IParam>) => pa.map(p => p.type).join(''),
+  svs: (pa: Array<IParam>) => pa.map(p => p.isReference ? p.type.toUpperCase() : p.type).join(''),
   // specifier values without references
   svw: (pa: Array<IParam>) => pa.filter(p => !p.isReference),
   // specifier values without references length
   svwl: (pa: Array<IParam>) => pa.filter(p => !p.isReference).length,
   // reference values string
-  rvs: (pa: Array<IParam>) => pa.filter(p => p.isReference).map(p => p.type).join(''),
+  rvs: (pa: Array<IParam>) => pa.filter(p => p.isReference).map(p => p.type.toUpperCase()).join(''),
   // reference values length
   rvl: (pa: Array<IParam>) => pa.filter(p => p.isReference).length,
 

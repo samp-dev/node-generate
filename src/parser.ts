@@ -111,10 +111,6 @@ export const parseParams = (params: string, isConstCorrect = false, defines?: TD
       }
     }
 
-    // vibe check 😎
-    if (paramInfo.isReference)
-      paramInfo.type = <TSpecifier>paramInfo.type.toUpperCase();
-
     paramInfo.name = (defaultValue ? param.split('=')[0] : param).trim();
     parsedParams.push(paramInfo);
   }
