@@ -9,5 +9,4 @@ export interface IPawnDoc {
   seealso?: Array<string>;
   remarks?: Array<string>;
   returns?: Array<string>;
-  
 }

@@ -4,7 +4,6 @@ import striptags from 'striptags';
 
 import { INCLUDE_DOCUMENTED_NATIVE_FORWARD, INCLUDE_NATIVE_FORWARD, INCLUDE_DEFAULT_VALUE_SIZEOF, INCLUDE_DEFINE } from './patterns';
 import { IParsed, TSpecifier, IPawnDoc, IParam, TDefine } from './interfaces';
-import {  } from './interfaces/parsed';
 
 export const parseInclude = async (content: string, hasCleanPawnDoc = false, isConstCorrect = false) => {
   const pattern = hasCleanPawnDoc ? INCLUDE_DOCUMENTED_NATIVE_FORWARD : INCLUDE_NATIVE_FORWARD;
