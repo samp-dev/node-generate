@@ -71,7 +71,7 @@ declare class samp {
    {{#unless @../../first}}
    * @alias samp.{{@root.removeEventListenerAliases.[0]}}
    {{/unless}}
-   * @param {string} eventName - Name of the event
+   * @param {string} [eventName={{this.name}}] - Name of the event
    * @param {function} func - Event callback
    * @returns {void}
    */
@@ -120,10 +120,24 @@ declare class samp {
    * Triggers the {{this.name}} event
    *
    * @name samp.fire
-   * @param {string} eventName - Name of the event
+   * @param {string} [eventName={{this.name}}] - Name of the event
+   {{#each this.params}}
+   * @param {{tts this.type true}} {{this.name}}{{#if ../this.pawnDoc}} - {{ppd ../this.pawnDoc this}}{{/if}}
+   {{/each}}
+   {{#if this.pawnDoc}}
+   {{#each this.pawnDoc.summary}}
+   * @summary {{this}}
+   {{/each}}
+   {{#each this.pawnDoc.see}}
+   * @see {{this}}
+   {{/each}}
+   {{#each this.pawnDoc.remarks}}
+   * @remarks {{this}}
+   {{/each}}
+   {{/if}}
    * @returns {void}
    */
-  static fire(eventName: '{{this.name}}'): void;
+  static fire(eventName: '{{this.name}}'{{#if this.params}}, {{#each this.params}}{{this.name}}: {{#if (eq this.type 's')}}string{{else}}number{{/if}}{{#if @last}}{{else}}, {{/if}}{{/each}}{{/if}}): void;
   {{/each}}
   {{/each}}
   /**
@@ -131,9 +145,10 @@ declare class samp {
    *
    * @name samp.fire
    * @param {string} eventName - Name of the event
+   * @param {...*} args - Event arguments
    * @returns {void}
    */
-  static fire(eventName: string): void;
+  static fire(eventName: string, ...args: Array<any>): void;
 
   {{#each parsedIncludes}}
   {{#each this.native}}
@@ -142,7 +157,7 @@ declare class samp {
    * Calls the AMX native {{this.name}} {{#if this.returnsFloat}}that returns a value with a Float tag{{/if}}
    *
    * @name samp.callNative{{#if this.returnsFloat}}Float{{/if}}
-   * @param {string} nativeName - Name of the native
+   * @param {string} [nativeName={{this.name}}] - Name of the native
    * @param {string} paramTypes - String of argument specifiers
    {{#if (gt (svwl this.params) 0)}}
    {{#each (svw this.params)}}
