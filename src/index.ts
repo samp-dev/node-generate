@@ -1,3 +1,4 @@
-import * as typeDefinitions from './generators/typeDefinitions';
+import { typeDefinitions, globals } from './generators';
 
 typeDefinitions.generate();
+globals.generate();

@@ -1,0 +1,7 @@
+// Type definitions for samp-node
+// Project: @sa-mp/node
+// Definitions by: pkfln <https://github.com/pkfln>
+
+{{#each globalConstants}}
+declare const {{@key}}: {{this}};
+{{/each}}
