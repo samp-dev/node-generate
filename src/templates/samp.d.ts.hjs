@@ -47,7 +47,7 @@ declare class samp {
    * @param {function} func - Event callback
    * @returns {void}
    */
-  static {{this}}(eventName: string, func: () => void): void;
+  static {{this}}(eventName: string, func: (...args: Array<any>) => void): void;
   {{/each}}
 
   {{#each removeEventListenerAliases}}
@@ -89,7 +89,7 @@ declare class samp {
    * @param {function} func - Event callback
    * @returns {void}
    */
-  static {{this}}(eventName: string, func: () => void): void;
+  static {{this}}(eventName: string, func: (...args: Array<any>) => void): void;
   /**
    * Removes specific listeners given in the Array
    *
@@ -101,7 +101,7 @@ declare class samp {
    * @param {function[]} funcs - Array of event callbacks
    * @returns {void}
    */
-  static {{this}}(eventName: string, funcs: Array<() => void>): void;
+  static {{this}}(eventName: string, funcs: Array<(...args: Array<any>) => void>): void;
   {{/each}}
 
   /**
