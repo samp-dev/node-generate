@@ -181,7 +181,7 @@ declare class samp {
    * @returns {*}
    {{/if}}
    */
-  static callNative{{#if this.returnsFloat}}Float{{/if}}(nativeName: '{{this.name}}', paramTypes: '{{svs this.params}}'{{#if (gt (svwl this.params) 0)}}, {{#each (svw this.params)}}{{this.name}}: {{tts this.type false}}{{#if @last}}{{else}}, {{/if}}{{/each}}{{/if}}): {{outputtype this.params}};
+  static callNative{{#if this.returnsFloat}}Float{{/if}}(nativeName: '{{this.name}}', paramTypes: '{{svs this.params}}'{{#each (svw this.params)}}, {{this.name}}: {{tts this.type false}}{{/each}}): {{outputtype this.params}};
   {{/unless}}
   {{/each}}
   {{/each}}

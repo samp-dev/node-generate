@@ -1,4 +1,11 @@
-import { typeDefinitions, globals } from './generators';
+import { typeDefinitions, globals, handlebarsHelper } from './generators';
+import { DocsStore } from './docsStore';
 
-typeDefinitions.generate();
-globals.generate();
+async function generateAll() {
+  const docsStore = await DocsStore.fromSampStdlib();
+  handlebarsHelper.initHandlerbars();
+  typeDefinitions.generate(docsStore);
+  globals.generate();
+}
+
+generateAll();

@@ -1,4 +1,3 @@
-import * as typeDefinitions from './typeDefinitions';
-import * as globals from './globals';
-
-export { typeDefinitions, globals };
+export * as typeDefinitions from './typeDefinitions';
+export * as globals from './globals';
+export * as handlebarsHelper from './handlebarsHelper';
