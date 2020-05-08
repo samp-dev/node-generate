@@ -7,8 +7,6 @@ import { EPaths } from '../enums';
 import { DocsStore } from '../docsStore';
 
 export const generate = async (docsStore: DocsStore) => {
-  const generating = ora('Generating type definitions...').start();
-
   const eventsDefinitionsSpinner = ora('Generating event type definitions...').start();
   await generateEventsDefinitions(docsStore);
   eventsDefinitionsSpinner.succeed('Events type definitions generated.');
@@ -16,8 +14,6 @@ export const generate = async (docsStore: DocsStore) => {
   const sampDefinitionsSpinner = ora('Generating samp type definitions...').start();
   await generateSampDefinitions(docsStore);
   sampDefinitionsSpinner.succeed('Samp type definitions generated.');
-
-  generating.succeed('All type definitions generated.');
 };
 
 export const generateEventsDefinitions = async (docsStore: DocsStore) => {

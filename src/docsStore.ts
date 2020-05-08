@@ -1,6 +1,7 @@
 import { IParsed } from "./interfaces";
 import { fetchSampInc, fetchActorInc, fetchHttpInc, fetchObjectsInc, fetchPlayersInc, fetchSampDBInc, fetchVehiclesInc } from './requests';
 import { parseInclude } from './parser';
+import ora from "ora";
 
 export class DocsStore {
   private constructor(
@@ -15,48 +16,48 @@ export class DocsStore {
   ) {}
 
   public static async fromSampStdlib() {
+    
+    const parsingSpinner = ora('Parsing docs from samp-stdlib...').start();
+    console.time("Parsing")
+    
     // A_SAMP
-    const a_samp = await fetchSampInc();
-    const a_sampParsed = await parseInclude(a_samp, true, true);
-
+    const a_sampPromise = fetchSampInc().then(data => parseInclude(data, true, true));
     // A_ACTOR
-    const a_actor = await fetchActorInc();
-    const a_actorParsed = await parseInclude(a_actor, true, true);
-
+    const a_actorPromise = fetchActorInc().then(data => parseInclude(data, true, true));
     // A_HTTP
-    const a_http = await fetchHttpInc();
-    const a_httpParsed = await parseInclude(a_http, true, true);
-
+    const a_httpPromise = fetchHttpInc().then(data => parseInclude(data, true, true));
+    
     // A_NPC
-    // const a_npc = await fetchNPCInc();
-    // a_npcParsed = await parseInclude(a_npc, false, true);
+    // const a_npcPromise = fetchNPCInc().then(data => parseInclude(data, false, true));
     // Removed because it contains most of the things a_samp already has and you shouldn't include both in a pawn gamemode either
 
     // A_OBJECTS
-    const a_objects = await fetchObjectsInc();
-    const a_objectsParsed = await parseInclude(a_objects, true, true);
-
+    const a_objectsPromise = fetchObjectsInc().then(data => parseInclude(data, true, true));
     // A_PLAYERS
-    const a_players = await fetchPlayersInc();
-    const a_playersParsed = await parseInclude(a_players, true, true);
-
+    const a_playersPromise = fetchPlayersInc().then(data => parseInclude(data, true, true));
     // A_SAMPDB
-    const a_sampdb = await fetchSampDBInc();
-    const a_sampdbParsed = await parseInclude(a_sampdb, false, true);
-
+    const a_sampdbPromise = fetchSampDBInc().then(data => parseInclude(data, false, true));
     // A_VEHICLES
-    const a_vehicles = await fetchVehiclesInc();
-    const a_vehiclesParsed = await parseInclude(a_vehicles, true, true);
+    const a_vehiclesPromise = fetchVehiclesInc().then(data => parseInclude(data, true, true));
+    
+    const results = await Promise.all([
+      a_sampPromise,
+      a_actorPromise,
+      a_httpPromise,
+      // a_npcPromise,
+      a_objectsPromise,
+      a_playersPromise,
+      a_sampdbPromise,
+      a_vehiclesPromise,
+    ]);
+    console.timeEnd("Parsing");
+    parsingSpinner.succeed("Parsing docs finished.");
 
-    return new DocsStore(
-      a_sampParsed,
-      a_actorParsed,
-      a_httpParsed,
-      // a_npcParsed,
-      a_objectsParsed,
-      a_playersParsed,
-      a_sampdbParsed,
-      a_vehiclesParsed,
-    );
+    return new DocsStore(...results);
   }
 }
+
+// Equals to `"a_samp" | "a_actor" | ...` etc.
+export type ParsedModules = {
+  [P in keyof DocsStore]: DocsStore[P] extends IParsed ? P : never;
+}[keyof DocsStore];

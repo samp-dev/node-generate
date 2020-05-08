@@ -1,0 +1,39 @@
+// Auto-generated wrappers for natives
+
+{{#each module.native}}
+  {{#unless (hvp this.params)}}
+  /**
+   * Calls the AMX native {{this.name}} {{#if this.returnsFloat}}that returns a value with a Float tag{{/if}}
+   *
+   * @name {{this.name}}
+   {{#if (gt (svwl this.params) 0)}}
+   {{#each (svw this.params)}}
+   * @param {{tts this.type true}} {{this.name}}
+              {{~#if ../this.pawnDoc}} {{ppd ../this.pawnDoc this}}{{/if}}
+              {{~#with (restriction this) as |r|}}{{#if r}} | {{r}}{{/if}}{{/with}}
+   {{/each}}
+   {{/if}}
+   {{#if this.pawnDoc}}
+   {{#each this.pawnDoc.summary}}
+   * @summary {{this}}
+   {{/each}}
+   {{#each this.pawnDoc.see}}
+   * @see {{this}}
+   {{/each}}
+   {{#each this.pawnDoc.remarks}}
+   * @remarks {{this}}
+   {{/each}}
+   {{#each this.pawnDoc.returns}}
+   * @returns {{this}}
+   {{/each}}
+   {{else}}
+   * @returns {*}
+   {{/if}}
+   */
+  export function {{this.name}}({{#each (svw this.params) ~}}
+                    {{this.name}}: {{tts this.type false}}{{#if this.defaultValue}} = {{this.defaultValue}}{{/if}}{{#unless @last}}, {{/unless}}{{/each ~}}
+                    ): {{outputtype this.params}} {
+    return samp.callNative{{#if this.returnsFloat}}Float{{/if}}('{{this.name}}', '{{svs this.params}}'{{#each (svw this.params)}}, {{this.name}}{{/each}});
+  }
+  {{/unless}}
+  {{/each}}

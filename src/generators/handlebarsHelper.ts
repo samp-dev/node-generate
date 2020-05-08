@@ -34,6 +34,14 @@ export function initHandlerbars() {
       const type = referenceToTsType(t);
       return b ? `{${type}}` : type;
     },
+    restriction: (param: IParam) => {
+        if (param.type === 'i' || param.type === 'd') {
+          return "Must be a whole number."
+        } else if (param.type === 'a') {
+          return "All numbers must be whole";
+        }
+        return null;
+    },
     outputtype: (params: Array<IParam>) => {
       const types = params.filter(p => p.isReference).map(r => referenceToTsType(r.type));
       if (!types.length) {
