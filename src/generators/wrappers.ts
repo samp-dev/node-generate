@@ -5,6 +5,7 @@ import { EPaths } from '../enums';
 import { DocsStore, ParsedModules } from '../docsStore';
 
 export const generate = async (docsStore: DocsStore) => {
+  // TODO: generate default values
   const generating = ora('Generating native wrappers definitions...').start();
   await generateNativeWrappers(docsStore);
   generating.succeed('All native wrappers generated.');
