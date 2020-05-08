@@ -16,9 +16,7 @@ export class DocsStore {
   ) {}
 
   public static async fromSampStdlib() {
-    
     const parsingSpinner = ora('Parsing docs from samp-stdlib...').start();
-    console.time("Parsing")
     
     // A_SAMP
     const a_sampPromise = fetchSampInc().then(data => parseInclude(data, true, true));
@@ -26,7 +24,7 @@ export class DocsStore {
     const a_actorPromise = fetchActorInc().then(data => parseInclude(data, true, true));
     // A_HTTP
     const a_httpPromise = fetchHttpInc().then(data => parseInclude(data, true, true));
-    
+
     // A_NPC
     // const a_npcPromise = fetchNPCInc().then(data => parseInclude(data, false, true));
     // Removed because it contains most of the things a_samp already has and you shouldn't include both in a pawn gamemode either
@@ -50,7 +48,7 @@ export class DocsStore {
       a_sampdbPromise,
       a_vehiclesPromise,
     ]);
-    console.timeEnd("Parsing");
+
     parsingSpinner.succeed("Parsing docs finished.");
 
     return new DocsStore(...results);
