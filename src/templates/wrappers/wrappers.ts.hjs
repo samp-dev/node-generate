@@ -36,4 +36,4 @@
     return samp.callNative{{#if this.returnsFloat}}Float{{/if}}('{{this.name}}', '{{svs this.params}}'{{#each (svw this.params)}}, {{this.name}}{{/each}});
   }
   {{/unless}}
-  {{/each}}
+{{/each}}
