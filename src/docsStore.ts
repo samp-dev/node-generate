@@ -1,5 +1,5 @@
 import { IParsed } from "./interfaces";
-import { fetchSampInc, fetchActorInc, fetchHttpInc, fetchObjectsInc, fetchPlayersInc, fetchSampDBInc, fetchVehiclesInc } from './requests';
+import { fetchSampInc, fetchActorInc, fetchHttpInc, fetchNPCInc, fetchObjectsInc, fetchPlayersInc, fetchSampDBInc, fetchVehiclesInc } from './requests';
 import { parseInclude } from './parser';
 import ora from "ora";
 
@@ -8,7 +8,7 @@ export class DocsStore {
     public readonly a_samp: IParsed,
     public readonly a_actor: IParsed,
     public readonly a_http: IParsed,
-    // public readonly a_npc: IParsed,
+    public readonly a_npc: IParsed,
     public readonly a_objects: IParsed,
     public readonly a_players: IParsed,
     public readonly a_sampdb: IParsed,
@@ -26,7 +26,7 @@ export class DocsStore {
     const a_httpPromise = fetchHttpInc().then(data => parseInclude(data, true, true));
 
     // A_NPC
-    // const a_npcPromise = fetchNPCInc().then(data => parseInclude(data, false, true));
+    const a_npcPromise = fetchNPCInc().then(data => parseInclude(data, false, true));
     // Removed because it contains most of the things a_samp already has and you shouldn't include both in a pawn gamemode either
 
     // A_OBJECTS
@@ -42,7 +42,7 @@ export class DocsStore {
       a_sampPromise,
       a_actorPromise,
       a_httpPromise,
-      // a_npcPromise,
+      a_npcPromise,
       a_objectsPromise,
       a_playersPromise,
       a_sampdbPromise,

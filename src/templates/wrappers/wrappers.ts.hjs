@@ -10,7 +10,7 @@
    {{#each (svw this.params)}}
    * @param {{tts this.type true}} {{this.name}}
               {{~#if ../this.pawnDoc}} {{ppd ../this.pawnDoc this}}{{/if}}
-              {{~#with (restriction this) as |r|}}{{#if r}} | {{r}}{{/if}}{{/with}}
+              {{~#with (restriction this) as |r|}}{{#if r}} - {{r}}{{/if}}{{/with}}
    {{/each}}
    {{/if}}
    {{#if this.pawnDoc}}
@@ -31,8 +31,8 @@
    {{/if}}
    */
   export function {{this.name}}({{#each (svw this.params) ~}}
-                    {{this.name}}: {{tts this.type false}}{{#if this.defaultValue}} = {{this.defaultValue}}{{/if}}{{#unless @last}}, {{/unless}}{{/each ~}}
-                    ): {{outputtype this.params}} {
+                    {{this.name}}: {{tts this.type false}}{{#if this.defaultValue}} = {{this.defaultValue}}{{/if}}{{#unless @last}}, {{/unless}}
+                  {{~/each}}): {{outputtype this.params}} {
     return samp.callNative{{#if this.returnsFloat}}Float{{/if}}('{{this.name}}', '{{svs this.params}}'{{#each (svw this.params)}}, {{this.name}}{{/each}});
   }
   {{/unless}}
