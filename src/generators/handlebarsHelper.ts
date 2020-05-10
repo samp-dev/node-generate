@@ -22,6 +22,8 @@ export function initHandlerbars() {
     svw: (pa: Array<IParam>) => pa.filter(p => !p.isReference),
     // specifier values without references length
     svwl: (pa: Array<IParam>) => pa.filter(p => !p.isReference).length,
+    // reference values
+    rv: (pa: Array<IParam>) => pa.filter(p => p.isReference),
     // reference values string
     rvs: (pa: Array<IParam>) => pa.filter(p => p.isReference).map(p => p.type.toUpperCase()).join(''),
     // reference values length

@@ -32,8 +32,13 @@
    */
   export function {{this.name}}({{#each (svw this.params) ~}}
                     {{this.name}}: {{tts this.type false}}{{#if this.defaultValue}} = {{this.defaultValue}}{{/if}}{{#unless @last}}, {{/unless}}
-                  {{~/each}}): {{outputtype this.params}} {
+                  {{~/each}}) {
+    {{#if (gt (rvl this.params) 1)}}
+    const [{{#each (rv this.params)}}{{this.name}}{{#unless @last}}, {{/unless}}{{/each}}] = samp.callNative{{#if this.returnsFloat}}Float{{/if}}('{{this.name}}', '{{svs this.params}}'{{#each (svw this.params)}}, {{this.name}}{{/each}});
+    return { {{#each (rv this.params)}}{{this.name}}{{#unless @last}}, {{/unless}}{{/each}} };
+    {{else}}
     return samp.callNative{{#if this.returnsFloat}}Float{{/if}}('{{this.name}}', '{{svs this.params}}'{{#each (svw this.params)}}, {{this.name}}{{/each}});
+    {{/if}}
   }
   {{/unless}}
 {{/each}}
