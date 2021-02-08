@@ -16,7 +16,7 @@ export const generateGlobalConstants = async () => {
   };
   
   const template = Handlebars.compile(await fs.readFile(EPaths.TEMPLATE_GLOBALS, 'utf8'));
-  await fs.outputFile(EPaths.GENERATED_GLOBALS, template({ globalConstants }));
+  await fs.outputFile(EPaths.GENERATED_GLOBAL_TYPES, template({ globalConstants }));
 };
 
 export const applyFixes = () => {}; // Apply fixes to generated code
